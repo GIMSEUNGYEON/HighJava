@@ -1,0 +1,60 @@
+package kr.or.ddit.basic;
+//스레드 우선순위
+public class T08TheardPriorityTest {
+	public static void main(String[] args) {
+		System.out.println("최대 우선순위 : " + Thread.MAX_PRIORITY);
+		System.out.println("최소 우선순위 : " + Thread.MIN_PRIORITY);
+		System.out.println("보통 우선순위 : " + Thread.NORM_PRIORITY);
+		
+		Thread[] ths = new Thread[] {
+				new ThreadTest1(),
+				new ThreadTest1(),
+				new ThreadTest1(),
+				new ThreadTest1(),
+				new ThreadTest1(),
+				new ThreadTest2()
+		};
+		
+		for(int i=0; i<ths.length; i++) {
+			if(i==5) {
+				ths[i].setPriority(10);
+			}else {
+				ths[i].setPriority(1);	
+			}
+		}
+		//우선순위 출력
+		for(Thread th : ths) {
+			System.out.println(th.getName() +"의 우선순위 : " + th.getPriority());
+		}
+		//스레드 구동
+		for(Thread th : ths) {
+			th.start();
+		}
+	}
+}
+
+//대문자를 출력하기 위한 스레드
+class ThreadTest1 extends Thread{
+	@Override
+	public void run() {
+		for(char ch = 'A'; ch <='Z'; ch++) {
+			System.out.println(ch);
+			
+			//아무것도하지않는 반복문(시간 떄우기용)
+			for(long i=1; i<=1000000000; i++) {}
+		}
+	}
+}
+
+//소문자를 출력하기 위한 스레드
+class ThreadTest2 extends Thread{
+	@Override
+	public void run() {
+		for(char ch = 'a'; ch <='z'; ch++) {
+			System.out.println(ch);
+			
+			//아무것도하지않는 반복문(시간 떄우기용)
+			for(long i=1; i<=1000000000; i++) {}
+		}
+	}
+}

@@ -23,7 +23,7 @@ public class T04ThreadTest {
 		
 		System.out.println("단독 처리 경과 시간 : " + (endTime - startTime));
 	
-		System.out.println("\n\n");
+		System.out.println("\n");
 		////////////////////////////////////////////////////////////////////////
 		
 		// 여러스레드가 협력해서 처리했을 때
@@ -65,7 +65,7 @@ class SumThread extends Thread{
 	@Override
 	public void run() {
 		long sum = 0L;
-		for(long i = min; i <=max; i++) {
+		for(long i = min; i <= max; i++) {
 			sum += i;
 		}
 		System.out.println(min + " ~ " + max + "까지의 합 : " + sum);
