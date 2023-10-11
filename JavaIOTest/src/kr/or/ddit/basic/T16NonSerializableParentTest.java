@@ -25,7 +25,7 @@ public class T16NonSerializableParentTest {
 		
 		oos.close();
 		
-		//////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("d:/D_Other/nonSerializable.bin"));
 		
 		Child child2 = (Child) ois.readObject(); //역직렬화
@@ -63,5 +63,18 @@ class Child extends Parent implements Serializable {
 	public void setChildName(String childName) {
 		this.childName = childName;
 	}
+	//만약 자식이 serializable하지 않고 부모가 가지고 있다면 자식도 구현한 것으로 본다. 하지만 부모가 구현하지 않은 것을 자식이 구현하면 자식이 가진 멤버변수만 구현한 것이 된다.
 	
+	private void writeObject(ObjectOutputStream out) throws IOException {
+	//직렬화될 때 자동으로 호출됨. (접근 제한자가 private가 아니면 자동 호출되지 않는다.
+		out.writeUTF(getParentName());
+		out.defaultWriteObject();
+		//객체 직렬화 과정에서 직렬화 대상이 아닌 객체들을 수동으로 직렬화시켜주는 과정.
+	}
+
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+	//역직렬화될 때 자동으로 호출됨. (접근 제한자가 private가 아니면 자동 호출되지 않는다.)	
+		setParentName(in.readUTF());
+		in.defaultReadObject();
+	}
 }
