@@ -30,14 +30,36 @@ public class whisperClient {
 	}
 
 	class ClientSender extends Thread {
+		
 		private DataOutputStream dos;
+		private DataInputStream dis;
 		private Scanner sc;
 		
 		public ClientSender(Socket socket) {
 			sc = new Scanner(System.in);
 			
 			try {
+				
+				dis = new DataInputStream(socket.getInputStream());
 				dos = new DataOutputStream(socket.getOutputStream());
+				
+				while(true) {
+					if(dos != null) {
+						System.out.println("대화명 입력 >>> ");
+						String name = sc.nextLine();
+						dos.writeUTF(name);
+						
+						String res = dis.readUTF();
+//						System.out.println("res=" + res);
+						
+						if("중복".equals(res)) {
+							System.out.println("중복됩니다. 다시입력하세요");
+						}else {
+							break;
+						}
+					}
+				}
+				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -46,11 +68,7 @@ public class whisperClient {
 		@Override
 		public void run() {
 			try {
-				if(dos != null) {
-					System.out.println("대화명 입력 >>> ");
-					String name = sc.nextLine();
-					dos.writeUTF(name);
-				}
+				
 				while(dos != null) {
 					dos.writeUTF(sc.nextLine());
 				}

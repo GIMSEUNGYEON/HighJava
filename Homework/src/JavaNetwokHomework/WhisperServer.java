@@ -73,51 +73,67 @@ public class WhisperServer {
 	}
 
 	public void whisperMessage(String userName, String message, String targetName) {
-		
-		if(clients.containsKey(userName)) {
-			
-				try {
 				
-					DataOutputStream dos = new DataOutputStream(clients.get(targetName).getOutputStream());
-					message  = message.replace("/w", "");
-					message  = message.replace(targetName, "");
-					
-					dos.writeUTF(">귓속말" + message);
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-		} else {
-		System.out.println("입력한 사용자를 찾을 수 없습니다.");
-		return;
-		}
+		try {
+			DataOutputStream dos = null;
+			if(clients.containsKey(targetName)) {	
+				dos =  new DataOutputStream(clients.get(targetName).getOutputStream());
+				message  = message.replace("/w", "");
+				message  = message.replace(targetName, "");
+				
+				dos.writeUTF(">귓속말" + message);
+				
+				DataOutputStream dos1 = new DataOutputStream(clients.get(userName).getOutputStream());
+				dos1.writeUTF(">" + targetName + "님에게 귓속말 " + message.trim());
+			} else {
+				dos =  new DataOutputStream(clients.get(userName).getOutputStream());
+				dos.writeUTF("입력한 사용자를 찾을 수 없습니다.");
+				return;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}			
 	}
 
 	class ServerReceiver extends Thread {
 
 		private Socket socket;
 		private DataInputStream dis;
+		private DataOutputStream dos;
 		private String name;
-
+		
 		public ServerReceiver(Socket socket) {
 			this.socket = socket;
 
 			try {
+				
 				dis = new DataInputStream(socket.getInputStream());
-			} catch (IOException e) {
+				dos = new DataOutputStream(socket.getOutputStream());
+				
+				while(true) {
+					name = dis.readUTF();
+					if(!clients.containsKey(name)) {
+						dos.writeUTF("ok");
+						
+						clients.put(name, socket);
+						broadCastMessage("SYSTEM [" + name + "]님이 입장하셨습니다.");
+						System.out.println("현재 서버 접속자 수 : " + clients.size());
+						break;
+	
+					}else {
+						dos.writeUTF("중복");
+						
+					}
+				}
+				
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
 		@Override
 		public void run() {
-			try {
-				name = dis.readUTF();
-
-				clients.put(name, socket);
-				System.out.println("현재 서버 접속자 수 : " + clients.size());
-				broadCastMessage("SYSTEM [" + name + "]님이 입장하셨습니다.");
-
+			try {	
 				String message = "";
 
 //				message = dis.readUTF();
@@ -133,7 +149,7 @@ public class WhisperServer {
 						broadCastMessage("[" + name + "] : " + message);
 					}
 				}
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				broadCastMessage(name + "님이 나갔습니다.");
