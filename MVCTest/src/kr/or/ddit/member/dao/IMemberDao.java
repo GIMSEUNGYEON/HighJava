@@ -43,4 +43,13 @@ public interface IMemberDao {
 	 * @return 회원정보를 담은 List 객체를 반환한다.
 	 */
 	public List<MemberVO> selectAllMember();
+	
+	/**
+	 * DB 테이블에 존재하는 회원정보 중에서 검색조건에 해당하는 회원정보를 가져오기 위한 메서드
+	 * @param mv 검색조건을 담은 MemberVO객체
+	 * @return 검색된 회원정보를 담은 List객체
+	 */
+	public List<MemberVO> searchMember(MemberVO mv);
+
+
 }

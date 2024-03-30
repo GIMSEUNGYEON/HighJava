@@ -26,7 +26,6 @@ public class T11DisplayCharacterTest {
 			try {
 				dl.join();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -46,6 +45,7 @@ public class T11DisplayCharacterTest {
 }
 //알파벳 대문자 출력을 위한 클래스
 class DisplayCharacter extends Thread implements Comparable<DisplayCharacter>{
+	
 	private String name;
 	
 	private int rank;
@@ -81,7 +81,7 @@ class DisplayCharacter extends Thread implements Comparable<DisplayCharacter>{
 	}
 
 	@Override
-	public int compareTo(DisplayCharacter dc ) {
+	public int compareTo(DisplayCharacter dc) {
 		return new Integer(this.getRank()).compareTo(dc.getRank());
 	}
 	

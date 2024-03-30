@@ -34,7 +34,7 @@ public class BoardUtil {
 		try {
 			return DriverManager.getConnection(bundle.getString("url"), 
 											   bundle.getString("username"), 
-											   bundle.getString("userpass"));
+											   bundle.getString("password"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

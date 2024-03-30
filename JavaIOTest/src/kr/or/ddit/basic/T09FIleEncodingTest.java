@@ -22,7 +22,7 @@ public class T09FIleEncodingTest {
      참고)
      ASCII => extended ASCII(ISO 8859-1) => 조합형, 완성형(KSC 5601) 
      
-     => 윈도우 계열 : CP949(확장완성형) - 일부문자(8822)를 추가함. => ANSI 계열 => EUC-KR
+     => 윈도우 계열 : CP949(확장완성형) - 일부문자(8822)를 추가함. => ANSI 계열
      => 유닉스 계열 : EUC-KR(확장 유닉스 코드)
      
      =>EUC-KR
@@ -33,15 +33,18 @@ public class T09FIleEncodingTest {
 		InputStreamReader isr = null;
 		
 		try {
-			fis = new FileInputStream("d:/D_Other/test_ansi.txt");
+//			fis = new FileInputStream("d:/D_Other/test_ansi.txt");
+			fis = new FileInputStream("d:/D_Other/test_utf8.txt");
 			
 			//파일 인코딩 정보를 이용하여 읽어오기
 			// ex) new InputStreamReader(바이트기반스트림객체, 인코딩방식)
-			isr = new InputStreamReader(fis, "CP949");
+			// 두번째 파라미터를 이용해서 인코딩 방식 지정 -> 해당 인코딩 방식으로 파일 읽어오기
+//			isr = new InputStreamReader(fis, "CP949");
+			isr = new InputStreamReader(fis, "utf-8");
 			
 			int data = 0;
 			while((data = isr.read()) != -1) {
-				System.out.println((char)data);
+				System.out.print((char)data);
 			}
 			System.out.println("\n출력 끝...");
 		}catch (IOException e) {

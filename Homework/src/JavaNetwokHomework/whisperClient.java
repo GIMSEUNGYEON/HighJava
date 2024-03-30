@@ -68,7 +68,6 @@ public class whisperClient {
 		@Override
 		public void run() {
 			try {
-				
 				while(dos != null) {
 					dos.writeUTF(sc.nextLine());
 				}

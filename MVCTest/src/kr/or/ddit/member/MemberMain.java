@@ -63,6 +63,7 @@ public class MemberMain {
 		System.out.println("  2. 자료 삭제");
 		System.out.println("  3. 자료 수정");
 		System.out.println("  4. 전체 자료 출력");
+		System.out.println("  5. 자료 검색 ");
 		System.out.println("  0. 작업 끝.");
 		System.out.println("----------------------");
 		System.out.print("원하는 작업 선택 >> ");
@@ -259,7 +260,38 @@ public class MemberMain {
 	
 	 */
 	
-		
-		
+	scan.nextLine(); //입력버퍼 비우기
+	
+	System.out.println("\n검색할 회원정보를 입력하세요.");
+	
+	System.out.println("회원 ID >> ");
+	String memId = scan.nextLine().trim();
+	
+	System.out.println("회원 이름 >>");
+	String memName = scan.nextLine().trim();
+	
+	System.out.println("회원 전화번호 >>");
+	String memTel = scan.nextLine().trim();
+	
+	System.out.println("회원 주소 >>");
+	String memAddr = scan.nextLine().trim();
+	
+	MemberVO mv = new MemberVO(memId, memName, memTel, memAddr);
+	List<MemberVO> memList = memService.searchMember(mv);
+	
+	System.out.println("\n----------------------------------------------------");
+	System.out.println("  생성일\tID\t이름\t전화번호\t\t주소");
+	System.out.println("----------------------------------------------------");
+	
+	
+	for(MemberVO mv2 : memList) {
+		System.out.println(" " + mv2.getRegDt() + "\t" + mv2.getMemId() + "\t" + mv2.getMemName() + "\t" + mv2.getMemTel()
+						 + "\t" + mv2.getMemAddr());
+	}
+	
+	System.out.println("----------------------------------------------------");
+
+	System.out.println("출력 완료");
+	
 	}
 }

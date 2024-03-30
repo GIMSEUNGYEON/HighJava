@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="memberTest">
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
 	<!--  
 	이 영역에 SQL문에 맞는 태그를 사용하여 sql을 기술한다.
 	
-	사용할 수 있는 기본저깅 태그들
+	사용할 수 있는 기본적인 태그들
 	<select> ~~~~~~ </select>
 	<insert> ~~~~~~ </insert>
 	<update> ~~~~~~ </update>
@@ -19,8 +20,61 @@
 	4) resultMap : 결과 레코드 컬럼명과 VO객체의 property명이 다를 경우 적절한 매핑을 위해 사용한다.  
 	
 	-->
-	<insert id="insertmember" parameterType="kr.or.ddit.member.VO.MemberVO">
-		INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr) VALUES (#{memId},#{memName},#{memTel},#{memAddr})
+	<insert id="insertMember" parameterType="kr.or.ddit.member.VO.MemberVO">
+		INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr) 
+			VALUES (#{memId},#{memName},#{memTel},#{memAddr})
+			<!-- #{memId}를 MV.getMemId메소드로 인식함 -->
 	</insert>
+	
+	<update id="updateMember" parameterType="kr.or.ddit.member.VO.MemberVO">
+		UPDATE MYMEMBER SET MEM_NAME = #{memName} , MEM_TEL = #{memTel}, MEM_ADDR = #{memAddr}
+	 		WHERE MEM_ID = #{memId} 
+	 </update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from mymember where mem_id = #{memId}
+	</delete>
+	
+	<resultMap type="memVO" id="memMap">
+		<result column="mem_id" property="memId"/>
+		<result column="mem_name" property="memName"/>
+		<result column="mem_tel" property="memTel"/>
+		<result column="mem_addr" property="memAddr"/>
+		<result column="reg_dt" property="regDt"/>
+	</resultMap>
 
+	<select id="selectAllMember" resultMap="memMap">
+		select * from mymember
+			<!-- resultMap을 이용한 방법 -->
+	
+<!-- <select id="selectAllMember" resultType="kr.or.ddit.member.VO.MemberVO"> -->
+<!-- 		select mem_id as memId, mem_name as memName, mem_tel as memTel, mem_addr as memAddr from mymember -->
+			<!-- resultType을 이용한 방법 -->
+			<!-- alias를 추가하여 해당하는 컬럼 값을 가져올 수 있도록 해줌 -->
+			
+	</select>
+	<select id="getMember" resultMap="memMap" parameterType="String">
+		select * from mymember where mem_id = #{memId}
+	</select>
+	<select id="checkMember" resultType="int" parameterType="String">
+		select count(*) from mymember where mem_id = #{memId}
+	</select>
+	
+	<select id="searchMember" resultMap="memMap">
+		select * from mymember where 1=1
+		
+		<if test='memId != null and memId != ""'>
+			and mem_Id = #{memId}
+		</if>
+		
+		<if test='memTel != null and !memTel.equals("")'>
+			and mem_Tel = #{memTel}
+		</if>
+		
+		<if test='memAddr != null and !memAddr.equals("")'>
+			and mem_Addr like '%' || #{memAddr} || '%'
+		</if>
+			Order by mem_id asc 
+		
+	</select>
 </mapper>

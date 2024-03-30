@@ -107,10 +107,3 @@ class UserInput extends Thread {
 		T07ThreadGame.man = inputData;	   //  입력값 설정
 	}
 }
-
-
-
-
-
-
-

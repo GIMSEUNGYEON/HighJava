@@ -1,0 +1,2 @@
+2023-10-17 11:29:06.407 [main] INFO  log4jExam.sql.Query - SQL =>     INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr)     VALUES (?, ?, ?, ? ) 
+2023-10-17 11:31:25.953 [main] INFO  log4jExam.sql.Query - SQL =>     INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr)     VALUES (?, ?, ?, ? ) 

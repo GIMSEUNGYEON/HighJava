@@ -11,6 +11,7 @@ public class T01InetAddressTest {
 	 InetAddress 객체를 제공한다.
 	 IP 주소 자체를 넣으면 주소 구성 자체의 유효성 정도만 체크가 이루어진다.
 	 */
+	
 	public static void main(String[] args) throws UnknownHostException {
 		//네이버 사이트의 IP 정보 가져오기
 		InetAddress naverIP = InetAddress.getByName("www.naver.com");

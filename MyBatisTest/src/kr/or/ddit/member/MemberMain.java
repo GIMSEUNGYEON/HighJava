@@ -128,7 +128,6 @@ public class MemberMain {
 			
 			System.out.print("회원 이름 >> ");
 			String memName = scan.next();
-			;
 			
 			System.out.print("회원 전화번호 >> ");
 			String memTel = scan.next();
@@ -173,7 +172,7 @@ public class MemberMain {
 			
 			System.out.print("회원 이름 >> ");
 			String memName = scan.next();
-			;
+
 			
 			System.out.print("회원 전화번호 >> ");
 			String memTel = scan.next();
@@ -280,12 +279,12 @@ public class MemberMain {
 	List<MemberVO> memList = memService.searchMember(mv);
 	
 	System.out.println("\n----------------------------------------------------");
-	System.out.println("  생성일\tID\t이름\t전화번호\t\t주소");
+	System.out.println(" 생성일\t\tID\t이름\t전화번호\t\t주소");
 	System.out.println("----------------------------------------------------");
 	
 	
 	for(MemberVO mv2 : memList) {
-		System.out.println(" " + mv2.getRegDt() + "\t" + mv2.getMemId() + "\t" + mv2.getMemName() + "\t" + mv2.getMemTel()
+		System.out.println("" + mv2.getRegDt() +  "\t" + mv2.getMemId() + "\t" + mv2.getMemName() + "\t" + mv2.getMemTel()
 						 + "\t" + mv2.getMemAddr());
 	}
 	

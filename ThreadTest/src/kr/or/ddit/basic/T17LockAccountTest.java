@@ -12,7 +12,7 @@ public class T17LockAccountTest {
 
  -ReentrantReadWriteLock : Read 및 Write 락을 구분하여 사용 가능함.
  				     여러 스레드가 동시에 Read 작업은 가능하지만 write 작업은 하나의 스레드만 가능함.
- 			    => Wrire보다 Read 위주의 작업이 많이 발생하는 경우에 사용하면 성능향상에 도움이 됨
+ 			    => Write보다 Read 위주의 작업이 많이 발생하는 경우에 사용하면 성능향상에 도움이 됨
 */
 	public static void main(String[] args) {
 		//공정 옵션 : Fairness 부여 하는법    true 넣기
@@ -50,6 +50,7 @@ class LockAccount {
 	public void deposit(int money) {
 		// Lock객체의 lock()메서드가 동기화 시작이고, unlock()메서드가 동기화의 끝을 나타낸다.
 		// lock()메서드로 동기화 설정한 곳에서는 반드시 unlock()메서드로 해제해주어야 한다.
+		// unlock()은 반드시 일어나게 하기 위해 주로 finally 에 작성한다.
 		lock.lock(); // 락 설정(락을 획득하기 전까지 BLOCKED 되어있음)
 		balance += money; // 동기화 처리 부분
 		lock.unlock(); // 락 해제			

@@ -45,4 +45,11 @@ public interface IMemberService {
 	 */
 	public List<MemberVO> displayAllMember();
 	
+	/**
+	 * 검색조건에 해당하는 회원정보를 검색하기 위한 메서드
+	 * @param mv 검색조건을 담은 MemberVo객체
+	 * @return 검색된 회원정보를 담은 List객체
+	 */
+	public List<MemberVO> searchMember(MemberVO mv);
+	
 }

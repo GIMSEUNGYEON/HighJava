@@ -122,7 +122,6 @@ public class WhisperServer {
 	
 					}else {
 						dos.writeUTF("중복");
-						
 					}
 				}
 				

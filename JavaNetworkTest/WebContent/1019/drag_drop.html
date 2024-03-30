@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<style>
+div {
+  border: 3px solid red;
+  height: auto;
+  padding: 20px;
+}
+img {
+  width: 100px;
+}
+</style>
+</head>
+<body>
+    <div class="drop">드롭위치1</div>
+    <div class="drop">드롭위치2</div>
+    <div class="drop">드롭위치3</div>
+    <img src="../images/lion.jpg" id="lion" alt="사자" draggable="true">
+    <img src="../images/ala.jpg" id="ala" alt="꽐라" draggable="true">
+    <img src="../images/bara2.jpg" id="br2" alt="배라" draggable="true">
+
+<script>
+/*  
+    드래그 대상 요소
+        - draggable=true 적용
+        - dragstart이벤트 적용
+            : dataTransfer.setData로 타겟 아이디 지정
+    
+    드롭 대상 요소
+        - dragover(대상위로 드래그 중인 상태)이벤트 적용
+            : 기본적으로 요소는 중첩 불가함으로 이벤트 기능을 중지시켜 드롭허용하기
+        - drop이벤트 적용
+            : dataTransfer.getDate로 아이디를 받아 타겟위치에 append시키기
+*/
+    let v_imgs = document.querySelectorAll('img');
+    let v_divs = document.getElementsByTagName('div');
+    
+    for(let i=0; i<v_imgs.length; i++){
+        v_imgs[i].addEventListener('dragstart',function(e){
+            //dataTransfer.setData로 img의 id정보 저장하기
+            console.log(e.target.id);
+            e.dataTransfer.setData("tgId",e.target.id);
+        });
+    }
+
+    for(let i=0; i<v_divs.length; i++){
+        v_divs[i].addEventListener('dragover',function(e){
+            e.preventDefault(); //dragover상태를 제거하여 드롭 허용 상태 만듦
+        });
+    
+        v_divs[i].addEventListener('drop',function(){
+            //dataTransfer.getData로 tgId 얻기
+            let targetId = event.dataTransfer.getData('tgId');
+            console.log("타겟아이디..", targetId);
+            //타겟위치에 append시키기
+            event.target.append(document.querySelector('#' + targetId));
+        });
+    }
+
+
+</script>
+</body>
+</html>

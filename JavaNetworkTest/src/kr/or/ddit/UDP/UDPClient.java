@@ -25,7 +25,7 @@ public class UDPClient {
 	
 	public void start() throws IOException {
 		
-		InetAddress serverAddr = InetAddress.getByName("192.168.141.3"); 
+		InetAddress serverAddr = InetAddress.getByName("192.168.141.21"); 
 		
 		dp = new DatagramPacket(msg, 1, serverAddr, 8888);
 		ds.send(dp); //패킷을 서버로 전송한다.

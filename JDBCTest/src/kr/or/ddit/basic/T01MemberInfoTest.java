@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import kr.or.ddit.util.JDBCUtil3;
 
 /*
@@ -39,6 +42,12 @@ create table mymember(
 
 */
 public class T01MemberInfoTest {
+	
+	private static final Logger SQL_LOGGER = LogManager.getLogger("log4jExam.sql.Query");
+	
+	private static final Logger PARAM_LOGGER = LogManager.getLogger("log4jExam.sql.Parameter");
+
+	private static final Logger RESULT_LOGGER = LogManager.getLogger(T01MemberInfoTest.class);
 
 	private Connection conn;
 	private Statement stmt;
@@ -132,6 +141,10 @@ public class T01MemberInfoTest {
 				String sql = "    INSERT INTO mymember (mem_id, mem_name, mem_tel, mem_addr) " + 
 						"    VALUES (?, ?, ?, ? ) ";
 				
+				SQL_LOGGER.info("SQL => " + sql);
+				
+				PARAM_LOGGER.debug("PARAMETER => " + "(memId : "  + memId +", memName : " + memName + "m memTel : " + memTel 
+									+ ", memAddr : " + memAddr + ")");
 				pstmt = conn.prepareStatement(sql);
 				
 				pstmt.setNString(1, memId);
@@ -140,6 +153,8 @@ public class T01MemberInfoTest {
 				pstmt.setNString(4, memAddr);
 				
 				int cnt = pstmt.executeUpdate(); //insert 구문이라서 update로 
+				
+				RESULT_LOGGER.info("결과값 => " + cnt);
 				
 				if(cnt > 0) {
 					System.out.println(memId + "님 회원가입 되었습니다.");

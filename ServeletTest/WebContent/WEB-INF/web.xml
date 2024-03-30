@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>ServeletTest</display-name>
+	<servlet>
+		<servlet-name>T01ServletLifeCycleTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T01ServletLifeCycleTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T01ServletLifeCycleTest</servlet-name>
+		<url-pattern>/T01ServletLifeCycleTest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T02ServletTest</servlet-name>
+<!-- 		alias 설정 -->
+		<servlet-class>kr.or.ddit.basic.T02ServletTest</servlet-class>
+<!-- 			실제로 작성한 서블릿 클래스 연결, 작성한 클래스에 링크가 연결되어야함 -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T02ServletTest</servlet-name>
+<!-- 		alias 설정 위의 servlet name과 반드시 같아야함.-->
+		<url-pattern>/Test</url-pattern>
+<!-- 		url에 작성하는 실제 링크 이름. 슬래시로 시작해야함. -->
+<!-- 		이걸 바꾸고 재실행하고 싶은 경우 서버도 재시작할것! -->
+<!-- 		이걸로 실행하고 싶어도 패키지 이름은 작성할 것 -->
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T03ServletParameterTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T03ServletParameterTest</servlet-name>
+		<url-pattern>/T03ServletParameterTest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>T04ServletCookieTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T04ServletCookieTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T04ServletCookieTest</servlet-name>
+		<url-pattern>/T04ServletCookieTest</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>T05ServletSessionTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T05ServletSessionTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T05ServletSessionTest</servlet-name>
+		<url-pattern>/T05ServletSessionTest</url-pattern>
+	</servlet-mapping>
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+	
+	<servlet>
+		<servlet-name>T06ServletContextTest</servlet-name>
+		<servlet-class>kr.or.ddit.basic.T06ServletContextTest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>T06ServletContextTest</servlet-name>
+		<url-pattern>/T06ServletContextTest</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
